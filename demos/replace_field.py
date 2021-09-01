@@ -111,7 +111,16 @@ class Indexer:
                     "indexed": True,
                     "required": True,
                     "stored": True
-                }]
+                },
+                {
+                    "name": "_root_",
+                    "type": "pint",
+                    "multiValued": False,
+                    "indexed": True,
+                    "required": True,
+                    "stored": True
+                }
+            ]
         }
 
         print(requests.post(self.solr_url + CORE_NAME + "/schema", json=data).json())
