@@ -106,14 +106,14 @@ class Indexer:
             "replace-field": [
                 {
                     "name": "_root_",
-                    "type": "pint",
+                    "type": "long",
                     "docValues": False,
                     "indexed": True,
                     "stored": False
                 },
                 {
                     "name": "id",
-                    "type": "pint",
+                    "type": "long",
                     "multiValued": False,
                     "indexed": True,
                     "required": True,
