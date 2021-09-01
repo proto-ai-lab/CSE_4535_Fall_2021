@@ -105,19 +105,9 @@ class Indexer:
         data = {
             "replace-field": [
                 {
-                    "name": "_root_",
-                    "type": "long",
-                    "docValues": False,
-                    "indexed": True,
-                    "stored": False
-                },
-                {
-                    "name": "id",
-                    "type": "long",
-                    "multiValued": False,
-                    "indexed": True,
-                    "required": True,
-                    "stored": True
+                    "name": "age",
+                    "type": "string",
+                    "multiValued": False
                 }
             ]
         }
