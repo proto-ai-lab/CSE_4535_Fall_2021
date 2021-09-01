@@ -103,7 +103,7 @@ class Indexer:
 
     def replace_fields(self):
         data = {
-            "replace-field-type": [
+            "replace-field": [
                 {
                     "name": "id",
                     "type" : "pint",
