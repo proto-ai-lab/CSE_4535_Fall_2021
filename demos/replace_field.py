@@ -105,15 +105,14 @@ class Indexer:
         data = {
             "replace-field": [
                 {
-                    "name": "id",
-                    "type" : "pint",
-                    "multiValued": False,
+                    "name": "_root_",
+                    "type": "pint",
+                    "docValues": False,
                     "indexed": True,
-                    "required": True,
-                    "stored": True
+                    "stored": False
                 },
                 {
-                    "name": "_root_",
+                    "name": "id",
                     "type": "pint",
                     "multiValued": False,
                     "indexed": True,
