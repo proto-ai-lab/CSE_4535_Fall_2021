@@ -16,10 +16,6 @@ def create_core(core=CORE_NAME):
             core=core)))
 
 
-def restart_core(core=CORE_NAME):
-    print(os.system("solr restart".format(core=core)))
-
-
 # collection
 
 collection = [{
@@ -68,7 +64,6 @@ class Indexer:
     def do_initial_setup(self):
         delete_core()
         create_core()
-        restart_core()
 
     def create_documents(self, docs):
         print(self.connection.add(docs))

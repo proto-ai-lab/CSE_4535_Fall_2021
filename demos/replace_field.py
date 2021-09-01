@@ -16,10 +16,6 @@ def create_core(core=CORE_NAME):
             core=core)))
 
 
-def restart_core(core=CORE_NAME):
-    print(os.system("sudo service solr restart".format(core=core)))
-
-
 # collection
 
 collection = [{
@@ -79,6 +75,7 @@ class Indexer:
                 {
                     "name": "first_name",
                     "type": "string",
+                    "indexed": True,
                     "multiValued": False
                 },
                 {
