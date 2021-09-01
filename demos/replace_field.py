@@ -105,10 +105,25 @@ class Indexer:
 
         print(requests.post(self.solr_url + CORE_NAME + "/schema", json=data).json())
 
+    def replace_fields(self):
+        data = {
+            "replace-field-type": [
+                {
+                    "name": "id",
+                    "type" : "pint",
+                    "multiValued": False,
+                    "indexed": True,
+                    "required": True,
+                    "stored": True
+                }]
+        }
+
+        print(requests.post(self.solr_url + CORE_NAME + "/schema", json=data).json())
+
 
 if __name__ == "__main__":
     i = Indexer()
     i.do_initial_setup()
     i.add_fields()
+    i.replace_fields()
     i.create_documents(collection)
-
