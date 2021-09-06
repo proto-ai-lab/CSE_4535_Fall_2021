@@ -23,6 +23,8 @@ pip3 install pandas numpy pysolr tweet-preprocessor demoji -q
 
 ## Configuration
 
+`config.json` is not automatically created, create config.json under `project1` directory.
+
 An example configuration file.
 
 ```json
