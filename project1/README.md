@@ -8,7 +8,7 @@ This codebase is a starter kit for Project 1. Usage of this toolkit is completel
 Use the package manager [pip3](https://pip.pypa.io/en/stable/) to install the requirements.
 
 ```bash
-pip3 install pandas numpy pysolr tweet-preprocessor demoji -q
+pip3 install pandas numpy tweepy pysolr tweet-preprocessor demoji -q
 ```
 
 ## Files and Tasks
