@@ -20,7 +20,17 @@ pip3 install pandas numpy tweepy pysolr tweet-preprocessor demoji -q
 `tweet_preprocesssor.py` | For processing Tweets | Implement `preprocess` |
 `scraper.py` | Main orchestration code | Implement logic for reply collection |
 
+## Authentication
 
+Please add the following details in `twitter.py` as shown below:
+
+```python
+class Twitter:
+    def __init__(self):
+        self.auth = tweepy.OAuthHandler("<consumer_api_key>", "<consumer_api_token>")
+        self.auth.set_access_token("<access_token>", "<access_token_secret>")
+        self.api = tweepy.API(self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+````
 ## Configuration
 
 `config.json` is not automatically created, create config.json under `project1` directory.
@@ -62,6 +72,10 @@ An example configuration file.
 - `keywords[0].language`: Language of the tweets you want to collect for a particular keyword.
 - `keywords[0].country`:Self explanatory.
 - `keywords[0].finished`:Self explanatory.
+
+## Data Files
+
+Under `project1/data/` all the POIs, Keywords tweets will be stored in pickle format, use these files to collect replies.
 
 ## Strategies for Efficient Data Collection/ Indexing
 
