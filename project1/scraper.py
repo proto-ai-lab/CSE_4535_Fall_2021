@@ -76,7 +76,7 @@ def main():
                 "pois": pois, "keywords": keywords
             })
 
-            save_file(processed_tweets, f"keywords_{keywords[i]['id']}.csv")
+            save_file(processed_tweets, f"keywords_{keywords[i]['id']}.pkl")
 
             print("------------ process complete -----------------------------------")
 
