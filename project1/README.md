@@ -41,6 +41,7 @@ An example configuration file.
 {
   "pois": [
     {
+      "id": 1,
       "screen_name": "JoeBiden",
       "country": "USA",
       "count": 500,
@@ -50,6 +51,7 @@ An example configuration file.
   ],
   "keywords": [
     {
+      "id": 1,
       "name": "covid vaccine",
       "count": 100,
       "lang": "en",
