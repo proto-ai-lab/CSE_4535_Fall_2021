@@ -64,6 +64,7 @@ An example configuration file.
 
 #### Fields
 
+- `pois[0].id`: Very IMPORTANT attribute, data files are created using this.
 - `pois[0].screen_name` : Screen name of the POI, get it from `twitter.com` .
 - `pois[0].country` : Country of the POI.
 - `pois[0].count` : The number of tweets that you want to collect for a POI.
