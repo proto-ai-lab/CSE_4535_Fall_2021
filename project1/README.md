@@ -31,6 +31,10 @@ class Twitter:
         self.auth.set_access_token("<access_token>", "<access_token_secret>")
         self.api = tweepy.API(self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 ````
+
+## Core Creation
+
+Please run `indexer.py` using the command `python3 indexer.py` only once. It will create the Solr core for you.  **[Caution]** RUNNING this command more than once will be delete your core and create a new core.
 ## Configuration
 
 `config.json` is not automatically created, create config.json under `project1` directory.
