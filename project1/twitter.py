@@ -9,14 +9,14 @@ class Twitter:
 
     def _meet_basic_tweet_requirements(self):
         '''
-        Add basic tweet requirements logic, like language, country, covid type etc
+        Add basic tweet requirements logic, like language, country, covid type etc.
         :return: boolean
         '''
         raise NotImplementedError
 
     def get_tweets_by_poi_screen_name(self):
         '''
-        Use user_timeline api to fetch POI related tweets, some postprocessing may be required
+        Use user_timeline api to fetch POI related tweets, some postprocessing may be required.
         :return: List
         '''
         raise NotImplementedError
