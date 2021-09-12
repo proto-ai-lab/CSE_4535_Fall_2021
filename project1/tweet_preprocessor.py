@@ -8,6 +8,12 @@ import preprocessor
 class TWPreprocessor:
     @classmethod
     def preprocess(cls, tweet):
+        '''
+        Do tweet pre-processing before indexing, make sure all the field data types are in the format as asked in the project doc.
+        :param tweet:
+        :return: dict
+        '''
+
         raise NotImplementedError
 
 

@@ -9,6 +9,9 @@ CORE_NAME = "IRF21P1"
 AWS_IP = "localhost"
 
 
+# [CAUTION] :: Run this script once, i.e. during core creation
+
+
 def delete_core(core=CORE_NAME):
     print(os.system('sudo su - solr -c "/opt/solr/bin/solr delete -c {core}"'.format(core=core)))
 
@@ -32,6 +35,10 @@ class Indexer:
         print(self.connection.add(docs))
 
     def add_fields(self):
+        '''
+        Define all the fields that is to be indexed in the core. Refer to the project doc for more details
+        :return:
+        '''
         raise NotImplementedError
 
 

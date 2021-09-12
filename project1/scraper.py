@@ -81,10 +81,8 @@ def main():
             print("------------ process complete -----------------------------------")
 
     if reply_collection_knob:
+        # Write a driver logic for reply collection, use the tweets from the data files for which the replies are to collected.
         raise NotImplementedError
-
-
-
 
 
 if __name__ == "__main__":
