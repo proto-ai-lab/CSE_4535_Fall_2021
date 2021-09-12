@@ -84,6 +84,10 @@ An example configuration file.
 
 Under `project1/data/` all the POIs, Keywords tweets will be stored in pickle format, use these files to collect replies.
 
+## Running the Scraper
+
+`python3 scraper.py`
+
 ## Strategies for Efficient Data Collection/ Indexing
 
 - Extensively use EC2 instances for data collection.
