@@ -13,9 +13,9 @@ pip3 install pandas numpy tweepy pysolr tweet-preprocessor demoji -q
 
 ## Steps to Follow
 
-1. Create core by running `indexer.py`.
+1. Add fields in the `add_fields` method. After that, create core by running `indexer.py`.
 2. Create `config.json` and write the configurations.
-3. Complete the tasks in `twitter.py`, `indexer.py`, `scraper.py`, `tweet_preprocessor.py`. This can be done incrementally.
+3. Complete the tasks in `twitter.py`, `scraper.py`, `tweet_preprocessor.py`. This can be done incrementally.
 4. Run `scraper.py` to start tweet collection. You can collect tweets in several modes, like collecting only POI related tweets, or only replies etc.
 
 ## Files and Tasks
