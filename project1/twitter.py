@@ -8,8 +8,8 @@ import tweepy
 
 class Twitter:
     def __init__(self):
-        self.auth = tweepy.OAuthHandler("", "")
-        self.auth.set_access_token("", "")
+        self.auth = tweepy.OAuthHandler("zDYimvTNMu88qvb8UZ48RhIH6", "lrtMbRpMQySzIPJvidvHjqEuBWzwq4wlblFXfh7iU5YBGDvF3A")
+        self.auth.set_access_token("1434993801223884804-ajixj7ntSNzK74ViDdJCHzoqbICzmO", "uMkhDXd28lIZmMhi8GjlLCMvgcklXrn1bowfkZz3hzrRS")
         self.api = tweepy.API(self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
     def _meet_basic_tweet_requirements(self):
@@ -19,19 +19,28 @@ class Twitter:
         '''
         raise NotImplementedError
 
-    def get_tweets_by_poi_screen_name(self):
+    def get_tweets_by_poi_screen_name(self,screen_name1,count1):
         '''
         Use user_timeline api to fetch POI related tweets, some postprocessing may be required.
         :return: List
         '''
-        raise NotImplementedError
+        tweets = []
+        #data = self.api.user_timeline(screen_name = screen_name1, count = count1, include_rts = False,tweet_mode='extended')
+        #data = self.api.user_timeline(screen_name = screen_name1, count = count1,tweet_mode='extended')
+        for data in tweepy.Cursor(self.api.user_timeline,screen_name = screen_name1, count = count1,tweet_mode='extended').items(count1):
+            tweets.append(data)
+        return tweets
 
-    def get_tweets_by_lang_and_keyword(self):
+    def get_tweets_by_lang_and_keyword(self,kw,count1,lang1):
         '''
         Use search api to fetch keywords and language related tweets, use tweepy Cursor.
         :return: List
         '''
-        raise NotImplementedError
+        query = kw + "-filter:retweets"
+        tweets = []
+        for data in tweepy.Cursor(self.api.search,q = query,lang = lang1,count = count1).items(count1):
+            tweets.append(data)
+        return tweets
 
     def get_replies(self):
         '''
