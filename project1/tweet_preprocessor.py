@@ -13,7 +13,7 @@ from datetime import datetime,timedelta
 
 class TWPreprocessor:
     @classmethod
-    def preprocess_poi(cls, tweet,poi = None):
+    def preprocess_poi(cls, tweet,poi = None,isReply = False):
         '''
         Do tweet pre-processing before indexing, make sure all the field data types are in the format as asked in the project doc.
         :param tweet:
@@ -30,12 +30,23 @@ class TWPreprocessor:
                  'verified': rcvd_json["user"]["verified"],
                  'id' : rcvd_json["id_str"],
                  'country' : poi['country'],
-                 'tweet_text' : rcvd_json["full_text"],
+                 #'tweet_text' : rcvd_json["full_text"],
                  'tweet_lang' : rcvd_json["lang"]
                 }
-
+        if isReply == False:
+            data["poi_name"] =  rcvd_json["user"]["screen_name"]
+            data["poi_id"] = rcvd_json["user"]["id"]
+        else:
+            data["replied_to_tweet_id"] = rcvd_json["replied_to_tweet_id"]
+            data["replied_to_user_id"] = rcvd_json["replied_to_user_id"]
+            data["reply_text"] = rcvd_json["reply_text"]
         text_xx = 'text_' + rcvd_json["lang"]
-        text_cleaner = _text_cleaner(rcvd_json["full_text"])
+        if "full_text" in rcvd_json:
+            data['tweet_text'] = rcvd_json["full_text"]
+            text_cleaner = _text_cleaner(rcvd_json["full_text"])
+        else:
+            data['tweet_text'] = rcvd_json["text"]
+            text_cleaner = _text_cleaner(rcvd_json["text"])
         data[text_xx] = text_cleaner[0]
         if len(text_cleaner[1]) > 0:
             data['tweet_emoticons'] = text_cleaner[1]
@@ -52,7 +63,7 @@ class TWPreprocessor:
             data['geolocation'] = rcvd_json['geo']
         date = rcvd_json['created_at']
         data['tweet_date'] = str(_get_tweet_date(date))
-        print("********************* formatted data ***************")
+        #print("********************* formatted data ***************")
         #print(data)
         return data
 
@@ -98,7 +109,7 @@ class TWPreprocessor:
             data['geolocation'] = rcvd_json['geo']
         date = rcvd_json['created_at']
         data['tweet_date'] = str(_get_tweet_date(date))
-        print("********************* formatted data ***************")
+        #print("********************* formatted data ***************")
         #print(data)
         return data
 

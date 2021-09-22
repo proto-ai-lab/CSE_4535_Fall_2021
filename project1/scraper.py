@@ -64,17 +64,17 @@ def main():
             print(f"---------- collecting tweets for poi: {pois[i]['screen_name']}")
 
             raw_tweets = twitter.get_tweets_by_poi_screen_name(
-                screen_name1 = pois[i]["screen_name"],count1 = pois[i]["count"])  # pass args as needed
+                screen_name1 = pois[i]["screen_name"],count1 = pois[i]["count"],poi_id = pois[i]["id"])  # pass args as needed
 
             processed_tweets = []
             for tw in raw_tweets:
-                processed = TWPreprocessor.preprocess_poi(tw,pois[i])
+                processed = TWPreprocessor.preprocess_poi(tweet= tw,poi=pois[i],isReply = False)
                 if processed != {}:
                     processed_tweets.append(processed)
                     records = _update_records(counter, processed['tweet_lang'], processed['country'])
-
+            #print(processed_tweets)
             indexer.create_documents(processed_tweets)
-
+            print('DONE>>>>>>>>>>>>>')
             pois[i]["finished"] = 1
             pois[i]["collected"] = len(processed_tweets)
 
@@ -121,12 +121,39 @@ def main():
             save_file(processed_tweets, f"keywords_{keywords[i]['id']}.pkl")
 
             print("------------ process complete -----------------------------------")
-    """
+
     if reply_collection_knob:
         # Write a driver logic for reply collection, use the tweets from the data files for which the replies are to collected.
+        for i in range(len(pois)):
+            if pois[i]["reply_finished"] == 0:
+                print(f"---------- collecting replies for tweets of poi: {pois[i]['screen_name']}")
 
-        raise NotImplementedError
-    """
+                raw_tweets = twitter.get_replies(1,"narendramodi")  # pass args as needed
+
+                processed_tweets = []
+                for tw in raw_tweets:
+                    processed = TWPreprocessor.preprocess_poi(tweet= tw,poi=pois[i],isReply = True)
+                    if processed != {}:
+                        processed_tweets.append(processed)
+                        records = _update_records(counter, processed['tweet_lang'], processed['country'])
+                #print(processed_tweets)
+                #indexer.create_documents(processed_tweets)
+                print('DONE>>>>>>>>>>>>>')
+                pois[i]["reply_finished"] = 1
+
+                write_config({
+                    "pois": pois, "keywords": keywords
+                })
+
+                write_records({
+                    "counter" : counter
+                })            
+
+                save_file(processed_tweets, f"reply_poi_{pois[i]['id']}.pkl")
+                print("------------ process complete -----------------------------------")
+
+
+    
     print("done")
 
 if __name__ == "__main__":

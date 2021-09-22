@@ -11,7 +11,7 @@ import requests
 
 
 CORE_NAME = "IRF21P1"
-AWS_IP = "18.223.121.172"
+AWS_IP = "localhost"
 
 
 # [CAUTION] :: Run this script once, i.e. during core creation
@@ -137,7 +137,7 @@ class Indexer:
                     "multiValued": True
                 },
                 {
-                    "name": "tweet_emoticons",
+                    "name": "geolocation",
                     "type": "strings",
                     "multiValued": True
                 }
