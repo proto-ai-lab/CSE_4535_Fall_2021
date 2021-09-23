@@ -148,7 +148,42 @@ class Twitter:
       "flattening the curve",
       "cierre de emergencia",
       "स्वास्थ्य सेवा",
-      "सोशल डिस्टन्सिंग"]
+      "सोशल डिस्टन्सिंग",
+      "covid vaccine",
+        "vaccine mandate",
+        "vaccines",
+        "vaccination",
+        "moderna",
+        "covidvaccine",
+        "shots",
+        "covidvaccination",
+        "vaccination drive",
+        "vaccine passports",
+        "teeka",
+        "unvaccinated",
+        "jab",
+        "doses",
+        "कोविशील्ड",
+        "टीके",
+        "टीकाकरण",
+        "वैक्सीनेशन",
+        "वैक्सीन पासपोर्ट",
+        "टीकाकरण अभियान",
+        "पहली खुराक",
+        "एंटीबॉडी",
+        "टीका",
+        "वैक्सीन जनादेश",
+        "anticuerpos",
+        "eficacia de la vacuna",
+        "dosis de vacuna",
+        "vacunar",
+        "vacunacovid19",
+        "vacunado",
+        "pinchazo",
+        "vacunación",
+        "vacuna",
+        "primera dosis",
+        "eficacia"]
         keyword_counter = 0
         keyword_index = 0
         tweet_id_index = []
@@ -182,10 +217,12 @@ class Twitter:
                 continue
             tweets.append(data)
         """
-
-        while  len(tweet_ids[poi_id]) < 500 or len(poi_tweet_ids[poi_id]) < 50:
+        retry_count = 0
+        while  len(tweet_ids[poi_id]) < 600 or len(poi_tweet_ids[poi_id]) < 50:
             print("Let's go>>>>>>>") 
-  
+            retry_count = retry_count + 1
+            if retry_count > 5:
+                break
             for data in tweepy.Cursor(self.api.user_timeline, screen_name = screen_name1, count = count1,tweet_mode='extended',include_rts=False).items(count1):
                 if data._json['id'] not in poi_tweet_ids[poi_id] and any(keyword in data._json['full_text'] for keyword in keywords) and len(poi_tweet_ids[poi_id]) < 50:
                     print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<NEW>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -218,7 +255,7 @@ class Twitter:
         '''
         query = kw + "-filter:retweets"
         tweets = []
-        for data in tweepy.Cursor(self.api.search,q = query,lang = lang1,count = count1).items(count1):
+        for data in tweepy.Cursor(self.api.search,q = query,lang = lang1,count = count1,tweet_mode='extended').items(count1):
             tweets.append(data)
         print("Number of tweets for the kw:"+kw+"is:",len(tweets))
         return tweets
@@ -231,19 +268,32 @@ class Twitter:
         '''
         replies=[]
         reply_counter = 0
+        retry_count = 0
         poi_tweet_id_list = []
+        index = 0
         if reply_id != 100:
             poi_tweet_id_list = poi_tweet_ids[reply_id]
+            print("POI tweet id list is : ",poi_tweet_id_list)
             for tweet_id in poi_tweet_id_list:
-                for tweet in tweepy.Cursor(self.api.search,q='to:'+screen_name, since_id=tweet_id).items(1000):
-                    if hasattr(tweet, 'in_reply_to_status_id_str'):
-                        if (tweet.in_reply_to_status_id_str==tweet_id):
-                            replies.append(tweet)
-                            reply_counter = reply_counter + 1
-                    if reply_counter >= 10:
-                        print("Number of replies for tweet id: {}",tweet_id)
-                        reply_counter = 0
-                        break
+                index = poi_tweet_id_list.index(tweet_id)
+                max_id = poi_tweet_id_list[index + 1]
+                print("Collecting reply for tweet id: ",tweet_id)
+                #print(str(tweet_id))
+                while reply_counter < 10 or retry_count < 5:
+                    for tweet in tweepy.Cursor(self.api.search,q='to:'+screen_name, since_id=tweet_id,max_id = max_id,tweet_mode='extended').items(1000):
+                        if max_id > tweet._json['id']:
+                            max_id = tweet._json['id']
+                        tw = tweet._json
+                        print('1>>')
+                        if hasattr(tw, 'in_reply_to_status_id'):
+                            print('2>>>')
+                            if (tw['in_reply_to_status_id']==tweet_id):
+                                print('3>>>>>')
+                                print("reply found for tweet id:",tweet_id,"reply count:",reply_counter)
+                                replies.append(tweet)
+                                reply_counter = reply_counter + 1
+                    print("Number of replies for tweet id:",tweet_id)
+                    retry_count = retry_count + 1
                             #print(tweet)
         return replies
 

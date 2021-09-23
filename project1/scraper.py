@@ -128,7 +128,7 @@ def main():
             if pois[i]["reply_finished"] == 0:
                 print(f"---------- collecting replies for tweets of poi: {pois[i]['screen_name']}")
 
-                raw_tweets = twitter.get_replies(1,"narendramodi")  # pass args as needed
+                raw_tweets = twitter.get_replies(reply_id = pois[i]['id'],screen_name = pois[i]['screen_name'])  # pass args as needed
 
                 processed_tweets = []
                 for tw in raw_tweets:

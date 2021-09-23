@@ -269,7 +269,7 @@
               {
                 "id": 17,
                 "name": "टीकाकरण",
-                "count": 1000,
+                "count": 2000,
                 "lang": "hi",
                 "country": "India",
                 "finished": 0
@@ -277,7 +277,7 @@
               {
                 "id": 18,
                 "name": "वैक्सीनेशन",
-                "count": 1000,
+                "count": 2000,
                 "lang": "hi",
                 "country": "India",
                 "finished": 0
@@ -317,7 +317,7 @@
               {
                 "id": 23,
                 "name": "टीका",
-                "count": 1000,
+                "count": 2000,
                 "lang": "hi",
                 "country": "India",
                 "finished": 0
@@ -381,7 +381,7 @@
               {
                 "id": 31,
                 "name": "pinchazo",
-                "count": 1000,
+                "count": 1500,
                 "lang": "es",
                 "country": "Mexico",
                 "finished": 0
@@ -389,7 +389,7 @@
               {
                 "id": 32,
                 "name": "vacunación",
-                "count": 1000,
+                "count": 1500,
                 "lang": "es",
                 "country": "Mexico",
                 "finished": 0
@@ -397,7 +397,7 @@
               {
                 "id": 33,
                 "name": "vacuna",
-                "count": 1000,
+                "count": 1500,
                 "lang": "es",
                 "country": "Mexico",
                 "finished": 0

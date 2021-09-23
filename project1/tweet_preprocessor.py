@@ -60,7 +60,7 @@ class TWPreprocessor:
         if len(tw_url) > 0:
             data['tweet_urls'] = tw_url
         if rcvd_json['geo'] != None:
-            data['geolocation'] = rcvd_json['geo']
+            data['geolocation'] = rcvd_json['geo']['coordinates']
         date = rcvd_json['created_at']
         data['tweet_date'] = str(_get_tweet_date(date))
         #print("********************* formatted data ***************")
@@ -82,7 +82,7 @@ class TWPreprocessor:
         data = {
                  'verified': rcvd_json["user"]["verified"],
                  'id' : rcvd_json["id_str"],
-                 'tweet_text' : rcvd_json["text"],
+                 'tweet_text' : rcvd_json["full_text"],
                  'tweet_lang' : rcvd_json["lang"]
                 }
         if rcvd_json["lang"] == "en":
@@ -92,7 +92,7 @@ class TWPreprocessor:
         else:
             data['country'] = "Mexico"
         text_xx = 'text_' + rcvd_json["lang"]
-        text_cleaner = _text_cleaner(rcvd_json["text"])
+        text_cleaner = _text_cleaner(rcvd_json["full_text"])
         data[text_xx] = text_cleaner[0]
         if len(text_cleaner[1]) > 0:
             data['tweet_emoticons'] = text_cleaner[1]
@@ -106,7 +106,7 @@ class TWPreprocessor:
         if len(tw_url) > 0:
             data['tweet_urls'] = tw_url
         if rcvd_json['geo'] != None:
-            data['geolocation'] = rcvd_json['geo']
+            data['geolocation'] = rcvd_json['geo']['coordinates']
         date = rcvd_json['created_at']
         data['tweet_date'] = str(_get_tweet_date(date))
         #print("********************* formatted data ***************")

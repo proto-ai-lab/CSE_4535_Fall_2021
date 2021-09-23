@@ -10,7 +10,7 @@ import requests
 # https://tecadmin.net/install-apache-solr-on-ubuntu/
 
 
-CORE_NAME = "IRF21P1"
+CORE_NAME = "IRF21P2"
 AWS_IP = "localhost"
 
 
@@ -46,11 +46,6 @@ class Indexer:
         '''
         data = {
             "add-field": [
-                {
-                    "name": "id",
-                    "type": "string",
-                    "multiValued": False
-                },
                 {
                     "name": "country",
                     "type": "string",
