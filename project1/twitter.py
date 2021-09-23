@@ -231,7 +231,7 @@ class Twitter:
             tweets.append(data)
         """
         retry_count = 0
-        while  len(tweet_ids[poi_id]) < 600 or len(poi_tweet_ids[poi_id]) < 52:
+        while  len(tweet_ids[poi_id]) < 500 or len(poi_tweet_ids[poi_id]) < 50:
             print("Let's go>>>>>>>") 
             retry_count = retry_count + 1
             if retry_count > 5:
@@ -278,7 +278,7 @@ class Twitter:
         tweets = []
         for data in tweepy.Cursor(self.api.search,q = query,lang = lang1,count = count1,tweet_mode='extended').items(count1):
             tweets.append(data)
-            kw_tw_id_json.append({"id": data.id_str,"user":data.user.screen_name})
+            kw_tw_id_json.append({"id": data.id,"user":data.user.screen_name})
         print("Number of tweets for the kw:"+kw+" is:",len(tweets))
         write_tweet_ids({
                 "poi_tweet_ids" : poi_tweet_ids_json,
@@ -345,14 +345,19 @@ class Twitter:
         tweet_ids = poi_tweet_ids_json[str(reply_id)]
         for tid in tweet_ids:
             counter = 0
-            for tweet in tweepy.Cursor(self.api.search,q='to:'+screen_name, result_type='recent', since_id=tid, tweet_mode='extended').items(1000):
+            max_id = 9999999999999999999
+            for tweet in tweepy.Cursor(self.api.search,q='to:'+screen_name, result_type='recent', max_id = max_id, since_id=tid, tweet_mode='extended').items(1000):
+                max_id = min(tweet.id,max_id)
+                if max_id <= tid:
+                    break
+                print("max_id:",max_id)
                 if hasattr(tweet, 'in_reply_to_status_id_str'):
                     if (tweet.in_reply_to_status_id_str==str(tid)):
                         replies.append(tweet)
                         print('Reply found')
                         counter = counter+1
                         print(counter)
-                    if(counter >= 11):
+                    if(counter >= 10):
                         #print(replies)
                         print('Going to next!!!!!!!!!!!!!!!!!!!!!')
                         break;    
@@ -367,11 +372,16 @@ class Twitter:
         poi_tweet_ids_json = read_tweet_id["poi_tweet_ids"]
         # kw_tw_id_json = { "fdjd" : "dfd"}
         tweet_ids = read_tweet_id["kw_tweet_ids"]
-        print(tweet_ids)
+        #print(tweet_ids)
         counter = 0
         for tid in tweet_ids:
             counter_per_tw = 0
-            for tweet in tweepy.Cursor(self.api.search,q=''+tid['user'], result_type='recent', since_id=tid['id'], tweet_mode='extended').items(1000):
+            max_id = 9999999999999999999
+            for tweet in tweepy.Cursor(self.api.search,q=''+tid['user'], result_type='recent', since_id=tid['id'], max_id = max_id,tweet_mode='extended').items(1000):
+                max_id = min(tweet.id,max_id)
+                if max_id <= tid['id']:
+                    break
+                #print("max_id:",max_id)
                 if hasattr(tweet, 'in_reply_to_status_id_str'):
                     if (tweet.in_reply_to_status_id_str==str(tid['id'])):
                         replies.append(tweet)
@@ -380,11 +390,11 @@ class Twitter:
                         print('Reply found:',counter_per_tw)
                         print("********************reply**********")
                         #print(tweet)
-                        if counter_per_tw >= 3:
-                            break
-                        print("Kw_reply_counter*****:",counter)
-                if(counter >= 10000):
-                    print("reached 10000 kw replies!!")
-                    return replies
+                if counter_per_tw >= 3:
+                    break
+            print("************************Total keyword reply count****************",counter)
+            if(counter >= 10000):
+                print("reached 10000 kw replies!!")
+                return replies
             print("Go to next tweet id from:",str(tid['id']))
         return replies

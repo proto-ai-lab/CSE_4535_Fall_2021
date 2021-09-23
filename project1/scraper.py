@@ -58,6 +58,7 @@ def main():
     counter = records["counter"]
     pois = config["pois"]
     keywords = config["keywords"]
+    kw_rply_finished = config["keywords_reply_finished"]
 
     for i in range(len(pois)):
         if pois[i]["finished"] == 0:
@@ -79,8 +80,8 @@ def main():
             pois[i]["collected"] = len(processed_tweets)
 
             write_config({
-                "pois": pois, "keywords": keywords
-            })
+                    "pois": pois, "keywords": keywords, "keywords_reply_finished" : kw_rply_finished
+                })
 
             write_records({
                 "counter" : counter
@@ -111,8 +112,8 @@ def main():
             #keywords[i]["name"] = print(keywords[i]["name"])
 
             write_config({
-                "pois": pois, "keywords": keywords
-            })
+                    "pois": pois, "keywords": keywords, "keywords_reply_finished" : kw_rply_finished
+                })
 
             write_records({
                 "counter" : counter
@@ -125,6 +126,35 @@ def main():
     if reply_collection_knob:
         poi_reply_counter = 0
         # Write a driver logic for reply collection, use the tweets from the data files for which the replies are to collected.
+        if kw_rply_finished == "False":
+            print("---------------collecting replies for keywords------------")
+            kw_reply_counter = 0
+            tweets = twitter.get_replies_kw()  # pass args as needed
+            processed_tweets = []
+            for tw in tweets:
+                processed = TWPreprocessor.preprocess_kw(tweet= tw,isReply = True)
+                if processed != {}:
+                    processed_tweets.append(processed)
+                    records = _update_records(counter, processed['tweet_lang'], processed['country'])
+                kw_reply_counter = kw_reply_counter + 1
+            #print(processed_tweets)
+            indexer.create_documents(processed_tweets)
+            kw_rply_finished = "True"
+            write_config({
+                    "pois": pois, "keywords": keywords, "keywords_reply_finished" : kw_rply_finished
+                })
+            counter['Total_reply_tweets'] = counter['Total_reply_tweets'] + kw_reply_counter
+            print('DONE>>>>>>>>>>>>>')
+            
+
+            write_records({
+                "counter" : counter
+            })            
+
+            save_file(processed_tweets, f"reply_kw.pkl")
+            print("------------ process complete -----------------------------------") 
+
+
         for i in range(len(pois)):
             if pois[i]["reply_finished"] == 0:
                 print(f"---------- collecting replies for tweets of poi: {pois[i]['screen_name']}")
@@ -141,47 +171,26 @@ def main():
                         poi_reply_counter = poi_reply_counter + 1
                         counter['Total_poi_replies'] = counter['Total_poi_replies'] + 1
                 #print(processed_tweets)
-                indexer.create_documents(processed_tweets)
+                #indexer.create_documents(processed_tweets)
                 print('DONE>>>>>>>>>>>>>')
                 pois[i]["reply_finished"] = 1
 
                 write_config({
-                    "pois": pois, "keywords": keywords
+                    "pois": pois, "keywords": keywords, "keywords_reply_finished" : kw_rply_finished
                 })
-
+                counter['Total_poi_replies'] =  poi_reply_counter
+                counter['Total_reply_tweets'] = counter['Total_reply_tweets'] + poi_reply_counter
                 write_records({
                     "counter" : counter
                 })            
 
                 save_file(processed_tweets, f"reply_poi_{pois[i]['id']}.pkl")
-                print("------------ process complete -----------------------------------")
+                print("------------ process reply poi tweets complete -----------------------------------")
 
-            if poi_reply_counter > 4:
+            if poi_reply_counter > 4000:
                 break
-        
-        print("---------------collecting replies for keywords------------")
-        kw_reply_counter = 0
-        tweets = twitter.get_replies_kw()  # pass args as needed
-        processed_tweets = []
-        for tw in tweets:
-            processed = TWPreprocessor.preprocess_kw(tweet= tw,isReply = True)
-            if processed != {}:
-                processed_tweets.append(processed)
-                records = _update_records(counter, processed['tweet_lang'], processed['country'])
-            kw_reply_counter = kw_reply_counter + 1
-        #print(processed_tweets)
-        indexer.create_documents(processed_tweets)
-        counter['Total_reply_tweets'] = kw_reply_counter + poi_reply_counter
-        counter['Total_poi_replies'] =  poi_reply_counter
-        print('DONE>>>>>>>>>>>>>')
-
-        write_records({
-            "counter" : counter
-        })            
-
-        save_file(processed_tweets, f"reply_kw.pkl")
-        print("------------ process complete -----------------------------------") 
-        
+    
+    print("---------------ALl processsing completed ---------------")
 
 
 if __name__ == "__main__":
