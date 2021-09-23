@@ -10,7 +10,7 @@ from twitter import Twitter
 from tweet_preprocessor import TWPreprocessor
 from indexer import Indexer
 
-reply_collection_knob = False
+reply_collection_knob = True
 
 def read_records():
     with open("records.json") as json_file:
@@ -99,7 +99,7 @@ def main():
 
             processed_tweets = []
             for tw in raw_tweets:
-                processed = TWPreprocessor.preprocess_kw(tw)
+                processed = TWPreprocessor.preprocess_kw(tweet= tw,isReply = False)
                 if processed != {}:
                     processed_tweets.append(processed)
                     records = _update_records(counter, processed['tweet_lang'], processed['country'])
@@ -123,6 +123,7 @@ def main():
             print("------------ process complete -----------------------------------")
 
     if reply_collection_knob:
+        poi_reply_counter = 0
         # Write a driver logic for reply collection, use the tweets from the data files for which the replies are to collected.
         for i in range(len(pois)):
             if pois[i]["reply_finished"] == 0:
@@ -136,8 +137,11 @@ def main():
                     if processed != {}:
                         processed_tweets.append(processed)
                         records = _update_records(counter, processed['tweet_lang'], processed['country'])
+                        counter['Total_reply_tweets'] = counter['Total_reply_tweets'] + 1
+                        poi_reply_counter = poi_reply_counter + 1
+                        counter['Total_poi_replies'] = counter['Total_poi_replies'] + 1
                 #print(processed_tweets)
-                #indexer.create_documents(processed_tweets)
+                indexer.create_documents(processed_tweets)
                 print('DONE>>>>>>>>>>>>>')
                 pois[i]["reply_finished"] = 1
 
@@ -152,9 +156,33 @@ def main():
                 save_file(processed_tweets, f"reply_poi_{pois[i]['id']}.pkl")
                 print("------------ process complete -----------------------------------")
 
+            if poi_reply_counter > 4:
+                break
+        
+        print("---------------collecting replies for keywords------------")
+        kw_reply_counter = 0
+        tweets = twitter.get_replies_kw()  # pass args as needed
+        processed_tweets = []
+        for tw in tweets:
+            processed = TWPreprocessor.preprocess_kw(tweet= tw,isReply = True)
+            if processed != {}:
+                processed_tweets.append(processed)
+                records = _update_records(counter, processed['tweet_lang'], processed['country'])
+            kw_reply_counter = kw_reply_counter + 1
+        #print(processed_tweets)
+        indexer.create_documents(processed_tweets)
+        counter['Total_reply_tweets'] = kw_reply_counter + poi_reply_counter
+        counter['Total_poi_replies'] =  poi_reply_counter
+        print('DONE>>>>>>>>>>>>>')
 
-    
-    print("done")
+        write_records({
+            "counter" : counter
+        })            
+
+        save_file(processed_tweets, f"reply_kw.pkl")
+        print("------------ process complete -----------------------------------") 
+        
+
 
 if __name__ == "__main__":
     main()

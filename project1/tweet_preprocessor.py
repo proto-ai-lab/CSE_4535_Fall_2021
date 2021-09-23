@@ -37,9 +37,10 @@ class TWPreprocessor:
             data["poi_name"] =  rcvd_json["user"]["screen_name"]
             data["poi_id"] = rcvd_json["user"]["id"]
         else:
-            data["replied_to_tweet_id"] = rcvd_json["replied_to_tweet_id"]
-            data["replied_to_user_id"] = rcvd_json["replied_to_user_id"]
-            data["reply_text"] = rcvd_json["reply_text"]
+            data["replied_to_tweet_id"] = rcvd_json["in_reply_to_status_id"]
+            data["replied_to_user_id"] = rcvd_json["in_reply_to_user_id"]
+            clean_reply_text = _text_cleaner(rcvd_json["full_text"])
+            data["reply_text"] = clean_reply_text
         text_xx = 'text_' + rcvd_json["lang"]
         if "full_text" in rcvd_json:
             data['tweet_text'] = rcvd_json["full_text"]
@@ -68,7 +69,7 @@ class TWPreprocessor:
         return data
 
     @classmethod
-    def preprocess_kw(cls, tweet):
+    def preprocess_kw(cls, tweet,isReply):
         '''
         Do tweet pre-processing before indexing, make sure all the field data types are in the format as asked in the project doc.
         :param tweet:
@@ -94,6 +95,10 @@ class TWPreprocessor:
         text_xx = 'text_' + rcvd_json["lang"]
         text_cleaner = _text_cleaner(rcvd_json["full_text"])
         data[text_xx] = text_cleaner[0]
+        if isReply is True:
+            data["replied_to_tweet_id"] = rcvd_json["in_reply_to_status_id"]
+            data["replied_to_user_id"] = rcvd_json["in_reply_to_user_id"]
+            data["reply_text"] = text_cleaner[0]
         if len(text_cleaner[1]) > 0:
             data['tweet_emoticons'] = text_cleaner[1]
         hashtags = _get_entities(rcvd_json,'hashtags')
