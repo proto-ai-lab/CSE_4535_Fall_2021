@@ -19,7 +19,7 @@ pip3 install tqdm Flask nltk
 2. `indexer.py` contains code to create and manipulate the index. Implement the necessary functions in indexer.
 3. `preprocessor.py` contains code to pre-process documents & queries. Implement the necessary functions in preprocessor.
 3. `linkedlist.py` defines the basic data structures for the postings list and the nodes of the postings list. It also contains code to manipulate the postings list. . Implement the necessary functions in linkedlist.
-4. Execute `run_project.py` to create your index and start your API endpoint. Your endpoint will be available at http://<your public ip>:<9999>/execute_query
+4. Execute `run_project.py` to create your index and start your API endpoint. Your endpoint will be available at `http://<ec2 public ipv4:9999>/execute_query`
 
 ## Strategies for completing the project efficiently
 
