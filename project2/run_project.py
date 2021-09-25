@@ -1,3 +1,8 @@
+'''
+@author: Sougata Saha
+Institute: University at Buffalo
+'''
+
 from tqdm import tqdm
 from preprocessor import Preprocessor
 from indexer import Indexer
