@@ -34,6 +34,7 @@ class LinkedList:
         else:
             """ Write logic to traverse the linked list.
                 To be implemented."""
+            raise NotImplementedError
             return traversal
 
     def traverse_skips(self):
@@ -43,6 +44,7 @@ class LinkedList:
         else:
             """ Write logic to traverse the linked list using skip pointers.
                 To be implemented."""
+            raise NotImplementedError
             return traversal
 
     def add_skip_connections(self):
@@ -52,10 +54,12 @@ class LinkedList:
         """ Write logic to add skip pointers to the linked list. 
             This function does not return anything.
             To be implemented."""
+        raise NotImplementedError
 
     def insert_at_end(self, value):
         """ Write logic to add new elements to the linked list.
             Insert the element at an appropriate position, such that elements to the left are lower than the inserted
             element, and elements to the right are greater than the inserted element.
             To be implemented. """
+        raise NotImplementedError
 

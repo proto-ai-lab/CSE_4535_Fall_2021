@@ -17,6 +17,7 @@ import random
 import flask
 from flask import Flask
 from flask import request
+import hashlib
 
 app = Flask(__name__)
 
@@ -30,16 +31,19 @@ class ProjectRunner:
         """ Implement the merge algorithm to merge 2 postings list at a time.
             Use appropriate parameters & return types.
             To be implemented."""
+        raise NotImplementedError
 
     def _daat_and(self):
         """ Implement the DAAT AND algorithm, which merges the postings list of N query terms.
             Use appropriate parameters & return types.
             To be implemented."""
+        raise NotImplementedError
 
     def _get_postings(self):
         """ Function to get the postings list of a term from the index.
             Use appropriate parameters & return types.
             To be implemented."""
+        raise NotImplementedError
 
     def _output_formatter(self, op):
         """ This formats the result in the required format.
@@ -94,6 +98,7 @@ class ProjectRunner:
                 3. Get the DAAT AND query results & number of comparisons with & without skip pointers.
                 4. Get the DAAT AND query results & number of comparisons with & without skip pointers, 
                     along with sorting by tf-idf scores."""
+            raise NotImplementedError
 
             input_term_arr = []  # Tokenized query. To be implemented.
 
@@ -159,7 +164,8 @@ def execute_query():
 
     response = {
         "Response": output_dict,
-        "time_taken": str(time.time() - start_time)
+        "time_taken": str(time.time() - start_time),
+        "username_hash": username_hash
     }
     return flask.jsonify(response)
 
@@ -172,11 +178,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--corpus", type=str, help="Corpus File name, with path.")
     parser.add_argument("--output_location", type=str, help="Output file name.", default=output_location)
+    parser.add_argument("--username", type=str,
+                        help="Your UB username. It's the part of your UB email id before the @buffalo.edu. "
+                             "DO NOT pass incorrect value here")
 
     argv = parser.parse_args()
 
     corpus = argv.corpus
     output_location = argv.output_location
+    username_hash = hashlib.md5(argv.username.encode()).hexdigest()
 
     """ Initialize the project runner"""
     runner = ProjectRunner()

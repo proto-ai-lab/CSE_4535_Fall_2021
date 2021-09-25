@@ -26,3 +26,4 @@ class Preprocessor:
         """ Implement logic to pre-process & tokenize document text.
             Write the code in such a way that it can be re-used for processing the user's query.
             To be implemented."""
+        raise NotImplementedError
