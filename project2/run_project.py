@@ -79,7 +79,7 @@ class ProjectRunner:
                 "node_mem": str(index[kw].start_node),
                 "node_type": str(type(index[kw].start_node)),
                 "node_value": str(index[kw].start_node.value),
-                "command_result": eval(command)}
+                "command_result": eval(command) if "." in command else ""}
 
     def run_queries(self, query_list, random_command):
         """ DO NOT CHANGE THE output_dict definition"""
