@@ -30,6 +30,7 @@ class ProjectRunner:
     def _merge(self):
         """ Implement the merge algorithm to merge 2 postings list at a time.
             Use appropriate parameters & return types.
+            While merging 2 postings list, preserve the maximum tf-idf value of a document.
             To be implemented."""
         raise NotImplementedError
 
