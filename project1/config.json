@@ -1,0 +1,424 @@
+{
+    "pois": [
+      {
+        "id": 1,
+        "screen_name": "JoeBiden",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 2,
+        "screen_name": "KamalaHarris",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 3,
+        "screen_name": "Tedcruz",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 4,
+        "screen_name": "CDCgov",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 5,
+        "screen_name": "GovKathyHochul",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 6,
+        "screen_name": "narendramodi",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 7,
+        "screen_name": "MoHFW_INDIA",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 8,
+        "screen_name": "ShashiTharoor",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 9,
+        "screen_name": "amitmalviya",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },            
+      {
+        "id": 10,
+        "screen_name": "priyankac19",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 11,
+        "screen_name": "sambitswaraj",
+        "country": "India",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 12,
+        "screen_name": "lopezobrador_",
+        "country": "Mexico",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },           
+      {
+        "id": 13,
+        "screen_name": "SSalud_mx",
+        "country": "Mexico",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 14,
+        "screen_name": "RicardoAnayaC",
+        "country": "Mexico",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 15,
+        "screen_name": "ruizmassieu",
+        "country": "Mexico",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },            
+      {
+        "id": 16,
+        "screen_name": "osoriochong",
+        "country": "Mexico",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      },
+      {
+        "id": 17,
+        "screen_name": "BernieSanders",
+        "country": "USA",
+        "count": 800,
+        "finished": 0,
+        "reply_finished": 0
+      }                             
+    ],
+    "keywords": [
+            {
+              "id": 1,
+              "name": "covid vaccine",
+              "count": 3000,
+              "lang": "en",
+              "country": "USA",
+              "finished": 0
+            },
+            {
+                "id": 2,
+                "name": "vaccine mandate",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 3,
+                "name": "vaccines",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 4,
+                "name": "vaccination",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 5,
+                "name": "moderna",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 6,
+                "name": "covidvaccine",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 7,
+                "name": "shots",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 8,
+                "name": "covidvaccination",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 9,
+                "name": "vaccination drive",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 10,
+                "name": "vaccine passports",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 11,
+                "name": "teeka",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 12,
+                "name": "unvaccinated",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 13,
+                "name": "jab",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 14,
+                "name": "doses",
+                "count": 3000,
+                "lang": "en",
+                "country": "USA",
+                "finished": 0
+              },
+              {
+                "id": 15,
+                "name": "कोविशील्ड",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 16,
+                "name": "टीके",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 17,
+                "name": "टीकाकरण",
+                "count": 2000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 18,
+                "name": "वैक्सीनेशन",
+                "count": 2000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 19,
+                "name": "वैक्सीन पासपोर्ट",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 20,
+                "name": "टीकाकरण अभियान",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 21,
+                "name": "पहली खुराक",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 22,
+                "name": "एंटीबॉडी",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 23,
+                "name": "टीका",
+                "count": 2000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 24,
+                "name": "वैक्सीन जनादेश",
+                "count": 1000,
+                "lang": "hi",
+                "country": "India",
+                "finished": 0
+              },
+              {
+                "id": 25,
+                "name": "anticuerpos",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 26,
+                "name": "eficacia de la vacuna",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 27,
+                "name": "dosis de vacuna",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 28,
+                "name": "vacunar",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 29,
+                "name": "vacunacovid19",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 30,
+                "name": "vacunado",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 31,
+                "name": "pinchazo",
+                "count": 1500,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 32,
+                "name": "vacunación",
+                "count": 1500,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 33,
+                "name": "vacuna",
+                "count": 1500,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 34,
+                "name": "primera dosis",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              },
+              {
+                "id": 35,
+                "name": "eficacia",
+                "count": 1000,
+                "lang": "es",
+                "country": "Mexico",
+                "finished": 0
+              }
+
+    ],
+    "keywords_reply_finished": "True"
+}

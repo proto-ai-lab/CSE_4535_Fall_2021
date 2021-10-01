@@ -1,0 +1,13 @@
+{
+    "counter": {
+        "Total_tweets": 0,
+        "en": 0,
+        "hi": 0,
+        "es": 0,
+        "USA": 0,
+        "India": 0,
+        "Mexico": 0,
+        "Total_reply_tweets":0,
+        "Total_poi_replies":0
+    }
+}
