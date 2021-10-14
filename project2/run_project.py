@@ -40,11 +40,11 @@ class ProjectRunner:
             To be implemented."""
         raise NotImplementedError
 
-    def _get_postings(self):
+    def _get_postings(self,term,isSkipPosting):
         """ Function to get the postings list of a term from the index.
             Use appropriate parameters & return types.
             To be implemented."""
-        raise NotImplementedError
+        return self.indexer.get_postings_list(term,isSkipPosting)
 
     def _output_formatter(self, op):
         """ This formats the result in the required format.
@@ -59,14 +59,16 @@ class ProjectRunner:
         """ This function reads & indexes the corpus. After creating the inverted index,
             it sorts the index by the terms, add skip pointers, and calculates the tf-idf scores.
             Already implemented, but you can modify the orchestration, as you seem fit."""
-        with open(corpus, 'r') as fp:
+        count = 0
+        with open(corpus, 'r',encoding = "utf-8") as fp:
             for line in tqdm(fp.readlines()):
                 doc_id, document = self.preprocessor.get_doc_id(line)
                 tokenized_document = self.preprocessor.tokenizer(document)
                 self.indexer.generate_inverted_index(doc_id, tokenized_document)
+                count += 1
         self.indexer.sort_terms()
         self.indexer.add_skip_connections()
-        self.indexer.calculate_tf_idf()
+        self.indexer.calculate_tf_idf(count)
 
     def sanity_checker(self, command):
         """ DO NOT MODIFY THIS. THIS IS USED BY THE GRADER. """
@@ -90,22 +92,30 @@ class ProjectRunner:
                        'daatAndSkip': {},
                        'daatAndTfIdf': {},
                        'daatAndSkipTfIdf': {},
-                       'sanity': self.sanity_checker(random_command)}
-
+                       'sanity': self.sanity_checker(random_command)
+                       }
+        #q_list = []
+        #q_list.append("Epidemiological")
+        #q_list.append("Epidemiological")
         for query in tqdm(query_list):
+        #for query in q_list:
             """ Run each query against the index. You should do the following for each query:
                 1. Pre-process & tokenize the query.
                 2. For each query token, get the postings list & postings list with skip pointers.
                 3. Get the DAAT AND query results & number of comparisons with & without skip pointers.
                 4. Get the DAAT AND query results & number of comparisons with & without skip pointers, 
                     along with sorting by tf-idf scores."""
-            raise NotImplementedError
+            #raise NotImplementedError
 
             input_term_arr = []  # Tokenized query. To be implemented.
+            input_term_arr = self.preprocessor.tokenizer(query)
 
             for term in input_term_arr:
                 postings, skip_postings = None, None
-
+                postings = self._get_postings(term,False)
+                print("Postings list for the term: "+str(term))
+                print(postings)
+                skip_postings = self._get_postings(term,True)
                 """ Implement logic to populate initialize the above variables.
                     The below code formats your result to the required format.
                     To be implemented."""
@@ -195,5 +205,5 @@ if __name__ == "__main__":
     """ Index the documents from beforehand. When the API endpoint is hit, queries are run against 
         this pre-loaded in memory index. """
     runner.run_indexer(corpus)
-
+    #runner.run_queries([],"fsd")
     app.run(host="0.0.0.0", port=9999)
