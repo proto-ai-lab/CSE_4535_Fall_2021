@@ -39,32 +39,33 @@ class ProjectRunner:
         while l1 is not None and l2 is not None:
             com_count = com_count + 1
             if l1.value == l2.value:
-                plList.insert_at_end(l1.value)
+                if l1.score > l2.score:
+                    plList.insert_at_end(l1.value)
+                else:
+                    plList.insert_at_end(l2.value)
                 l1 = l1.next
                 l2 = l2.next
             elif l1.value < l2.value:
                 if isSkip:
                     if l1.skipPointer is not None and l1.skipPointer.value <= l2.value:
-                        while l1.skipPointer is not None and l1.skipPointer.value <= l2.value:
-                            l1 = l1.skipPointer
-                        else
-                            l1 = l1.next
+                        l1 = l1.skipPointer
+                    else:
+                        l1 = l1.next
                 else:
                     l1 = l1.next
             else:
                 if isSkip:
                     if l2.skipPointer is not None and l2.skipPointer.value <= l1.value:
-                        while l2.skipPointer is not None and l2.skipPointer.value <= l1.value:
-                            l2 = l2.skipPointer
-                        else
-                            l2 = l2.next
+                        l2 = l2.skipPointer
+                    else:
+                        l2 = l2.next
                 else:
                     l2 = l2.next
         return plList,com_count
 
         #raise NotImplementedError
 
-    def _daat_and(self,query,isSkip):
+    def _daat_and(self,query,isSkip,isTf_idfSort):
         """ Implement the DAAT AND algorithm, which merges the postings list of N query terms.
             Use appropriate parameters & return types.
             To be implemented."""
@@ -94,7 +95,25 @@ class ProjectRunner:
             pl1 = final_pl_list
             final_comparisions = final_comparisions + com 
 
-        final_list = final_pl_list.traverse_list()
+        if isTf_idfSort:
+            unsorted_dict = OrderedDict({})
+            sorted_dict = OrderedDict({})
+            pl_list = final_pl_list.start_node
+            while pl_list is not None:
+                unsorted_dict[pl_list.value] = pl_list.score
+                pl_list = pl_list.next
+
+            sorted_keys = sorted(unsorted_dict, key=unsorted_dict.get)  # [1, 3, 2]
+            print("Dictionary values before sorting--------------------")
+            print(unsorted_dict)
+            for w in sorted_keys:
+                sorted_dict[w] = unsorted_dict[w]
+            print("Dictionary values aftering sorting--------------------")
+            print(unsorted_dict)
+            final_list = sorted_keys
+
+        else:
+            final_list = final_pl_list.traverse_list()
         return final_list,final_comparisions
         #raise NotImplementedError
 
@@ -194,9 +213,10 @@ class ProjectRunner:
             """ Implement logic to populate initialize the above variables.
                 The below code formats your result to the required format.
                 To be implemented."""
-            and_op_no_skip, and_comparisons_no_skip = self._daat_and(input_term_arr,False)
-            and_op_skip, and_comparisons_skip = self._daat_and(input_term_arr,True)
-
+            and_op_no_skip, and_comparisons_no_skip = self._daat_and(input_term_arr,False,False)
+            and_op_skip, and_comparisons_skip = self._daat_and(input_term_arr,True,False)
+            and_op_no_skip_sorted,and_comparisons_no_skip_sorted = self._daat_and(input_term_arr,False,True)
+            and_op_skip_sorted,and_comparisons_skip_sorted = self._daat_and(input_term_arr,True,True)
 
             and_op_no_score_no_skip, and_results_cnt_no_skip = self._output_formatter(and_op_no_skip)
             and_op_no_score_skip, and_results_cnt_skip = self._output_formatter(and_op_skip)
