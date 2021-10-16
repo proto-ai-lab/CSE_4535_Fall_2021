@@ -30,7 +30,7 @@ class Indexer:
             If a term is not present in the index, then add the term to the index & initialize a new postings list (linked list).
             If a term is present, then add the document to the appropriate position in the posstings list of the term.
             To be implemented."""
-        print("TERMMMM ---- " + term_)
+        #print("TERMMMM ---- " + term_)
         inverted_index = self.inverted_index
         if term_ not in inverted_index:
             #Create new postings list
@@ -59,9 +59,9 @@ class Indexer:
         """ For each postings list in the index, add skip pointers.
             To be implemented."""
         for key in self.inverted_index:
-            print("Calling skip connections: " + key)
+            #print("Calling skip connections: " + key)
             if(key == "epidemiolog"):
-                print("printing skip pointers")
+                #print("printing skip pointers")
                 print(self.inverted_index[key])
             self.inverted_index[key].add_skip_connections()
         #raise NotImplementedError

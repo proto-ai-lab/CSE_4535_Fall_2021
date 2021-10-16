@@ -40,9 +40,9 @@ class ProjectRunner:
             com_count = com_count + 1
             if l1.value == l2.value:
                 if l1.score > l2.score:
-                    plList.insert_at_end(l1.value)
+                    plList.insert_at_end(l1.value,l1.score)
                 else:
-                    plList.insert_at_end(l2.value)
+                    plList.insert_at_end(l2.value,l2.score)
                 l1 = l1.next
                 l2 = l2.next
             elif l1.value < l2.value:

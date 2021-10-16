@@ -96,12 +96,14 @@ class LinkedList:
         #         n1 = n2
         #     count = count + self.skip_length
 
-    def insert_at_end(self, value):
+    def insert_at_end(self, value,score=None):
         """ Write logic to add new elements to the linked list.
             Insert the element at an appropriate position, such that elements to the left are lower than the inserted
             element, and elements to the right are greater than the inserted element.
             To be implemented. """
         new_node = Node(value=value, tf = 1)
+        if score is not None:
+            new_node.score = score
         self.length += 1
         n = self.start_node
 
@@ -133,12 +135,12 @@ class LinkedList:
 
     def calculate_doc_score(self,total_docs,count_list):
         self.idf = total_docs/self.length
-        print("self.length = " + str(self.length) + "--self.idf = " + str(self.idf))
+        #print("self.length = " + str(self.length) + "--self.idf = " + str(self.idf))
         n = self.start_node
         while n is not None:
             total_tokens = count_list[n.value]
             term_freq_score = n.tf /total_tokens
-            print("total token = " + str(total_tokens) + "--term_freq_score = " + str(term_freq_score))
+            #print("total token = " + str(total_tokens) + "--term_freq_score = " + str(term_freq_score))
             n.score = term_freq_score * self.idf
             print(str(n.value) + ": score = " + str(n.score))
             n = n.next
