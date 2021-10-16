@@ -27,7 +27,7 @@ class ProjectRunner:
         self.preprocessor = Preprocessor()
         self.indexer = Indexer()
 
-    def _merge(self,pl1,pl2):
+    def _merge(self,pl1,pl2,isSkip):
         """ Implement the merge algorithm to merge 2 postings list at a time.
             Use appropriate parameters & return types.
             While merging 2 postings list, preserve the maximum tf-idf value of a document.
@@ -36,21 +36,33 @@ class ProjectRunner:
         com_count = 0
         l1 = pl1.start_node
         l2 = pl2.start_node
-        while l1 is not None and l2 is not None:
+        if isSkip:
+            while l1 is not None and l2 is not None:
             com_count = com_count + 1
             if l1.value == l2.value:
                 plList.insert_at_end(l1.value)
-                l1 = l1.next
-                l2 = l2.next
+                l1 = l1.skipPointer
+                l2 = l2.skipPointer
             elif l1.value < l2.value:
-                l1 = l1.next
+                l1 = l1.skipPointer
             else:
-                l2 = l2.next
+                l2 = l2.skipPointer
+        else:
+            while l1 is not None and l2 is not None:
+                com_count = com_count + 1
+                if l1.value == l2.value:
+                    plList.insert_at_end(l1.value)
+                    l1 = l1.next
+                    l2 = l2.next
+                elif l1.value < l2.value:
+                    l1 = l1.next
+                else:
+                    l2 = l2.next
         return plList,com_count
 
         #raise NotImplementedError
 
-    def _daat_and(self,query):
+    def _daat_and(self,query,isSkip):
         """ Implement the DAAT AND algorithm, which merges the postings list of N query terms.
             Use appropriate parameters & return types.
             To be implemented."""
@@ -61,9 +73,9 @@ class ProjectRunner:
         final_list = []
         final_pl_list = LinkedList()
         final_comparisions = 0
-        pl = []
+        pl = OrderedDict({})
         for term in query:
-            pl.append(index[term])
+            pl[term] = index[term]
         sorted_terms = sorted(pl, key=lambda x:pl[x].length, reverse=False)
         pl1 = index[sorted_terms[0]]
         pl2 = index[sorted_terms[1]]
@@ -73,8 +85,10 @@ class ProjectRunner:
             term_index = term_index + 1
             if term_index == number_of_terms:
                 break
-            pl2 = pl[term_index]
-            final_pl_list,com = self._merge(pl1,pl2)
+            pl2 = index[sorted_terms[term_index]]
+            final_pl_list,com = self._merge(pl1,pl2,isSkip)
+            if isSkip:
+                final_pl_list.add_skip_connections()
             pl1 = final_pl_list
             final_comparisions = final_comparisions + com 
 
@@ -178,7 +192,8 @@ class ProjectRunner:
             """ Implement logic to populate initialize the above variables.
                 The below code formats your result to the required format.
                 To be implemented."""
-            and_op_no_skip, and_comparisons_no_skip = self._daat_and(input_term_arr)
+            and_op_no_skip, and_comparisons_no_skip = self._daat_and(input_term_arr,False)
+            and_op_skip, and_comparisons_skip = self._daat_and(input_term_arr,True)
 
 
             and_op_no_score_no_skip, and_results_cnt_no_skip = self._output_formatter(and_op_no_skip)
