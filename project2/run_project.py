@@ -54,23 +54,35 @@ class ProjectRunner:
         """ Implement the DAAT AND algorithm, which merges the postings list of N query terms.
             Use appropriate parameters & return types.
             To be implemented."""
+        print("Query*******")
+        print(query)
         index = self.indexer.get_index()
         number_of_terms = len(query)
         final_list = []
         final_pl_list = LinkedList()
         final_comparisions = 0
-        pl1 = index[query[0]]
-        pl2 = index[query[1]]
+        for x in range(0,number_of_terms):
+            pl[x] = index[query[x]]
+        for x in range(0,number_of_terms-1):
+            for y in range(1,number_of_terms):
+                if pl[x].length > pl[y].length:
+                    tmp = pl[x]
+                    pl[x] = pl[y]
+                    pl[y] = tmp
+        pl1 = pl[0]
+        pl2 = pl[1]
         term_index = 0
         while term_index < number_of_terms:
             com = 0
             term_index = term_index + 1
-            pl2 = index[query[term_index]]
-            final_pl_list,com = merge(pl1,pl2)
+            if term_index == number_of_terms:
+                break
+            pl2 = pl[term_index]
+            final_pl_list,com = self._merge(pl1,pl2)
             pl1 = final_pl_list
             final_comparisions = final_comparisions + com 
 
-        final_list = final_pl_list.traverse_list
+        final_list = final_pl_list.traverse_list()
         return final_list,final_comparisions
         #raise NotImplementedError
 
@@ -170,7 +182,7 @@ class ProjectRunner:
             """ Implement logic to populate initialize the above variables.
                 The below code formats your result to the required format.
                 To be implemented."""
-            and_op_no_skip, and_comparisons_no_skip = self._daat_and(query)
+            and_op_no_skip, and_comparisons_no_skip = self._daat_and(input_term_arr)
 
 
             and_op_no_score_no_skip, and_results_cnt_no_skip = self._output_formatter(and_op_no_skip)
