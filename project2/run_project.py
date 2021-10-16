@@ -27,24 +27,67 @@ class ProjectRunner:
         self.preprocessor = Preprocessor()
         self.indexer = Indexer()
 
-    def _merge(self):
+    def _merge(self,pl1,pl2):
         """ Implement the merge algorithm to merge 2 postings list at a time.
             Use appropriate parameters & return types.
             While merging 2 postings list, preserve the maximum tf-idf value of a document.
             To be implemented."""
-        raise NotImplementedError
+        plList = LinkedList()
+        com_count = 0
+        l1 = pl1.start_node
+        l2 = pl2.start_node
+        while l1 is not None and l2 is not None:
+            com_count = com_count + 1
+            if l1.value == l2.value:
+                plList.insert_at_end(l1.value)
+                l1 = l1.next
+                l2 = l2.next
+            elif l1.value < l2.value:
+                l1 = l1.next
+            else:
+                l2 = l2.next
+        return plList,com_count
 
-    def _daat_and(self):
+        #raise NotImplementedError
+
+    def _daat_and(self,query):
         """ Implement the DAAT AND algorithm, which merges the postings list of N query terms.
             Use appropriate parameters & return types.
             To be implemented."""
-        raise NotImplementedError
+        index = self.indexer.get_index()
+        number_of_terms = len(query)
+        final_list = []
+        final_pl_list = LinkedList()
+        final_comparisions = 0
+        pl1 = index[query[0]]
+        pl2 = index[query[1]]
+        term_index = 0
+        while term_index < number_of_terms:
+            com = 0
+            term_index = term_index + 1
+            pl2 = index[query[term_index]]
+            final_pl_list,com = merge(pl1,pl2)
+            pl1 = final_pl_list
+            final_comparisions = final_comparisions + com 
+
+        final_list = final_pl_list.traverse_list
+        return final_list,final_comparisions
+        #raise NotImplementedError
 
     def _get_postings(self,term,isSkipPosting):
         """ Function to get the postings list of a term from the index.
             Use appropriate parameters & return types.
             To be implemented."""
-        return self.indexer.get_postings_list(term,isSkipPosting)
+        postingslist = []
+        index = self.indexer.get_index()
+        if term not in index:
+            return postingsList
+        if isSkipPosting is False:
+            postingsList = index[term].traverse_list()
+        else:
+            postingsList = index[term].traverse_skips()
+        return postingsList
+        #return self.indexer.get_postings_list(term,isSkipPosting)
 
     def _output_formatter(self, op):
         """ This formats the result in the required format.
@@ -95,8 +138,6 @@ class ProjectRunner:
                        'sanity': self.sanity_checker(random_command)
                        }
         #q_list = []
-        #q_list.append("Epidemiological")
-        #q_list.append("Epidemiological")
         for query in tqdm(query_list):
         #for query in q_list:
             """ Run each query against the index. You should do the following for each query:
@@ -129,6 +170,9 @@ class ProjectRunner:
             """ Implement logic to populate initialize the above variables.
                 The below code formats your result to the required format.
                 To be implemented."""
+            and_op_no_skip, and_comparisons_no_skip = self._daat_and(query)
+
+
             and_op_no_score_no_skip, and_results_cnt_no_skip = self._output_formatter(and_op_no_skip)
             and_op_no_score_skip, and_results_cnt_skip = self._output_formatter(and_op_skip)
             and_op_no_score_no_skip_sorted, and_results_cnt_no_skip_sorted = self._output_formatter(and_op_no_skip_sorted)
