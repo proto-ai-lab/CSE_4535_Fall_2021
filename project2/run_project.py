@@ -36,26 +36,28 @@ class ProjectRunner:
         com_count = 0
         l1 = pl1.start_node
         l2 = pl2.start_node
-        if isSkip:
-            while l1 is not None and l2 is not None:
+        while l1 is not None and l2 is not None:
             com_count = com_count + 1
             if l1.value == l2.value:
                 plList.insert_at_end(l1.value)
-                l1 = l1.skipPointer
-                l2 = l2.skipPointer
+                l1 = l1.next
+                l2 = l2.next
             elif l1.value < l2.value:
-                l1 = l1.skipPointer
+                if isSkip:
+                    if l1.skipPointer is not None and l1.skipPointer.value <= l2.value:
+                        while l1.skipPointer is not None and l1.skipPointer.value <= l2.value:
+                            l1 = l1.skipPointer
+                        else
+                            l1 = l1.next
+                else:
+                    l1 = l1.next
             else:
-                l2 = l2.skipPointer
-        else:
-            while l1 is not None and l2 is not None:
-                com_count = com_count + 1
-                if l1.value == l2.value:
-                    plList.insert_at_end(l1.value)
-                    l1 = l1.next
-                    l2 = l2.next
-                elif l1.value < l2.value:
-                    l1 = l1.next
+                if isSkip:
+                    if l2.skipPointer is not None and l2.skipPointer.value <= l1.value:
+                        while l2.skipPointer is not None and l2.skipPointer.value <= l1.value:
+                            l2 = l2.skipPointer
+                        else
+                            l2 = l2.next
                 else:
                     l2 = l2.next
         return plList,com_count
