@@ -71,7 +71,7 @@ class Indexer:
             To be implemented."""
         #total_docs = 5
         for key in self.inverted_index:
-            print("scores for the term -------> " + key)
+            #print("scores for the term -------> " + key)
             self.inverted_index[key].calculate_doc_score(count,self.token_count_in_doc)
         #raise NotImplementedError
 

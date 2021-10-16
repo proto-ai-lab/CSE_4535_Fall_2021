@@ -137,14 +137,12 @@ class LinkedList:
         self.idf = total_docs/self.length
         #print("self.length = " + str(self.length) + "--self.idf = " + str(self.idf))
         n = self.start_node
-        print("Calculating score for doc:-------")
-        print(n.value)
         while n is not None:
             total_tokens = count_list[n.value]
             term_freq_score = n.tf /total_tokens
             #print("total token = " + str(total_tokens) + "--term_freq_score = " + str(term_freq_score))
             n.score = term_freq_score * self.idf
-            print(str(n.value) + ": score = " + str(n.score))
+            #print(str(n.value) + ": score = " + str(n.score))
             n = n.next
 
     def increment_tf_docID(self,doc_id):
