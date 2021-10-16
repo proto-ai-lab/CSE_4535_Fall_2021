@@ -61,16 +61,12 @@ class ProjectRunner:
         final_list = []
         final_pl_list = LinkedList()
         final_comparisions = 0
-        for x in range(0,number_of_terms):
-            pl[x] = index[query[x]]
-        for x in range(0,number_of_terms-1):
-            for y in range(1,number_of_terms):
-                if pl[x].length > pl[y].length:
-                    tmp = pl[x]
-                    pl[x] = pl[y]
-                    pl[y] = tmp
-        pl1 = pl[0]
-        pl2 = pl[1]
+        pl = []
+        for term in query:
+            pl.append(index[term])
+        sorted_terms = sorted(pl, key=lambda x:pl[x].length, reverse=False)
+        pl1 = index[sorted_terms[0]]
+        pl2 = index[sorted_terms[1]]
         term_index = 0
         while term_index < number_of_terms:
             com = 0
