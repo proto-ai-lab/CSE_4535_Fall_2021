@@ -95,7 +95,7 @@ class ProjectRunner:
             pl1 = final_pl_list
             final_comparisions = final_comparisions + com 
 
-        if isTf_idfSort:
+        if isTf_idfSort == True:
             unsorted_dict = OrderedDict({})
             sorted_dict = OrderedDict({})
             pl_list = final_pl_list.start_node
@@ -103,14 +103,13 @@ class ProjectRunner:
                 unsorted_dict[pl_list.value] = pl_list.score
                 pl_list = pl_list.next
 
-            sorted_keys = sorted(unsorted_dict, key=unsorted_dict.get)  # [1, 3, 2]
+            sorted_keys = sorted(unsorted_dict.items(), key = lambda x: x[1],reverse=True)  # [1, 3, 2]
             print("Dictionary values before sorting--------------------")
             print(unsorted_dict)
-            for w in sorted_keys:
-                sorted_dict[w] = unsorted_dict[w]
+            for item in sorted_keys:
+                final_list.append(item[0])
             print("Dictionary values aftering sorting--------------------")
             print(unsorted_dict)
-            final_list = sorted_keys
 
         else:
             final_list = final_pl_list.traverse_list()
@@ -197,8 +196,8 @@ class ProjectRunner:
             for term in input_term_arr:
                 postings, skip_postings = None, None
                 postings = self._get_postings(term,False)
-                print("Postings list for the term: "+str(term))
-                print(postings)
+                #print("Postings list for the term: "+str(term))
+                #print(postings)
                 skip_postings = self._get_postings(term,True)
                 """ Implement logic to populate initialize the above variables.
                     The below code formats your result to the required format.
