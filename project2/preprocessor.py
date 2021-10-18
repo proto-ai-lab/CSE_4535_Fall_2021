@@ -28,7 +28,7 @@ class Preprocessor:
             To be implemented."""
         token_list = []
         preprocessed_text = ''
-        preprocessed_text = re.sub("[^A-Za-z0-9]+", ' ', text.lower).strip()
+        preprocessed_text = re.sub("[^A-Za-z0-9]+", ' ', text.lower()).strip()
         for token in preprocessed_text.split(" "):
             if(token not in self.stop_words):
                 stemmed_word = self.ps.stem(token)
