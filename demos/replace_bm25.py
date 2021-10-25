@@ -2,7 +2,7 @@ import os
 import pysolr
 import requests
 
-CORE_NAME = "IRF21_class_demo"
+CORE_NAME = "IRF21_p3_demo"
 AWS_IP = "localhost"
 
 
